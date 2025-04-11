@@ -39,20 +39,25 @@ jobs:
           go mod tidy
           
           # Linux AMD64
-          GOOS=linux GOARCH=amd64 go build -v -o release/traffic-monitor-amd64 .
-          cd release && tar -czvf "traffic-monitor-amd64-$VERSION.tar.gz" traffic-monitor-amd64 && cd ..
+       	  GOOS=linux GOARCH=amd64 go build -v -o release/traffic-monitor-amd64 .
+          cp release/traffic-monitor-amd64 release/traffic-monitor
+          cd release && tar -czvf "traffic-monitor-amd64-$VERSION.tar.gz" traffic-monitor && rm traffic-monitor && cd ..
           
           # Linux 386
           GOOS=linux GOARCH=386 go build -v -o release/traffic-monitor-386 .
-          cd release && tar -czvf "traffic-monitor-386-$VERSION.tar.gz" traffic-monitor-386 && cd ..
-          
+          cp release/traffic-monitor-386 release/traffic-monitor
+          cd release && tar -czvf "traffic-monitor-386-$VERSION.tar.gz" traffic-monitor && rm traffic-monitor && cd ..
+
           # Linux ARM
           GOOS=linux GOARCH=arm go build -v -o release/traffic-monitor-arm .
-          cd release && tar -czvf "traffic-monitor-arm-$VERSION.tar.gz" traffic-monitor-arm && cd ..
-          
+          cp release/traffic-monitor-arm release/traffic-monitor
+          cd release && tar -czvf "traffic-monitor-arm-$VERSION.tar.gz" traffic-monitor && rm traffic-monitor && cd ..
+
           # Linux ARM64
           GOOS=linux GOARCH=arm64 go build -v -o release/traffic-monitor-arm64 .
-          cd release && tar -czvf "traffic-monitor-arm64-$VERSION.tar.gz" traffic-monitor-arm64 && cd ..
+          cp release/traffic-monitor-arm64 release/traffic-monitor
+          cd release && tar -czvf "traffic-monitor-arm64-$VERSION.tar.gz" traffic-monitor && rm traffic-monitor && cd ..
+
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
