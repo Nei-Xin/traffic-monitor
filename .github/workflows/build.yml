@@ -23,8 +23,9 @@ jobs:
 
       - name: Get version
         id: get_version
+        shell: bash  # ✅ 显式指定 bash 否则 sh 默认不支持 [[ ]]
         run: |
-          if [[ $GITHUB_REF == refs/tags/* ]]; then
+          if [[ "$GITHUB_REF" == refs/tags/* ]]; then
             echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
           else
             echo "VERSION=dev-$(date +%Y%m%d)" >> $GITHUB_ENV
@@ -34,30 +35,16 @@ jobs:
         run: |
           rm -rf release
           mkdir -p release
-          
+
           # 设置正确的模块路径
           go mod tidy
-          
-          # Linux AMD64
-       	  GOOS=linux GOARCH=amd64 go build -v -o release/traffic-monitor-amd64 .
-          cp release/traffic-monitor-amd64 release/traffic-monitor
-          cd release && tar -czvf "traffic-monitor-amd64-$VERSION.tar.gz" traffic-monitor && rm traffic-monitor && cd ..
-          
-          # Linux 386
-          GOOS=linux GOARCH=386 go build -v -o release/traffic-monitor-386 .
-          cp release/traffic-monitor-386 release/traffic-monitor
-          cd release && tar -czvf "traffic-monitor-386-$VERSION.tar.gz" traffic-monitor && rm traffic-monitor && cd ..
 
-          # Linux ARM
-          GOOS=linux GOARCH=arm go build -v -o release/traffic-monitor-arm .
-          cp release/traffic-monitor-arm release/traffic-monitor
-          cd release && tar -czvf "traffic-monitor-arm-$VERSION.tar.gz" traffic-monitor && rm traffic-monitor && cd ..
-
-          # Linux ARM64
-          GOOS=linux GOARCH=arm64 go build -v -o release/traffic-monitor-arm64 .
-          cp release/traffic-monitor-arm64 release/traffic-monitor
-          cd release && tar -czvf "traffic-monitor-arm64-$VERSION.tar.gz" traffic-monitor && rm traffic-monitor && cd ..
-
+          for GOARCH in amd64 386 arm arm64; do
+            OUTPUT="traffic-monitor-$GOARCH"
+            GOOS=linux GOARCH=$GOARCH go build -v -o release/$OUTPUT .
+            cp release/$OUTPUT release/traffic-monitor
+            cd release && tar -czvf "traffic-monitor-$GOARCH-${VERSION}.tar.gz" traffic-monitor && rm traffic-monitor && cd ..
+          done
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
@@ -74,3 +61,4 @@ jobs:
           prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
