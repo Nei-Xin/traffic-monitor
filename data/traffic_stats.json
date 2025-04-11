@@ -1,0 +1,10 @@
+{
+  "current_month": "2025-04",
+  "last_reset_time": "2025-04-12T00:51:02.707693884+08:00",
+  "next_reset_time": "2025-05-01T00:00:00+08:00",
+  "bytes_in": 153607807,
+  "bytes_out": 1914175,
+  "last_bytes_in": 269485973957,
+  "last_bytes_out": 263921941554,
+  "warnings_sent_this_month": true
+}

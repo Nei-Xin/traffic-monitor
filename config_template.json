@@ -1,0 +1,38 @@
+{
+    // 服务器名称，可以在流量警告中显示
+    "server_name": "my_server",
+
+    // 每月重置流量统计的日期
+    "monthly_reset_day": 1,  // 每月1日重置
+
+    // 要监控的网络接口名称
+    "network_interface": "eth0",  // 通常是 "eth0" 或 "wlan0"，根据你的服务器配置而定
+
+    // 流量模式，支持的值为 "in"、"out"、"max"、"both"：
+    // "in"：仅监控入站流量
+    // "out"：仅监控出站流量
+    // "max"：入站与出站流量取最大值
+    // "both"：监控入站和出站流量的总和
+    "traffic_mode": "both",  // 默认值为 "both"
+
+    // 流量警告阈值，单位为 GB
+    "warning_threshold_gb": 1000,  // 超过1000GB（1TB）时触发警告
+
+    // 流量检查的间隔时间，单位为秒
+    "check_interval_seconds": 300,  // 每5分钟检查一次流量
+
+    // 数据存储目录，存储流量统计数据的文件将保存在此目录
+    "data_dir": "./data",  // 默认目录为当前目录下的 "data"
+
+    // Telegram机器人配置
+    // 用于发送流量警告和月度报告的Telegram Bot Token
+    "telegram_bot_token": "your-telegram-bot-token",  // 在Telegram上创建Bot并获取Token
+
+    // Telegram聊天ID列表，消息将发送到这些ID的聊天
+    "telegram_chat_ids": [123456789, 987654321],  // 填入你的聊天ID，可以是多个ID
+
+    // 是否在流量超过阈值时关机
+    // 如果为 true，程序会在达到警告阈值后，发送消息通知并在10秒后关机
+    "shutdown_on_warning": true  // 设置为 true 时，流量超过阈值时会关机
+}
+
