@@ -93,5 +93,5 @@ sudo systemctl start beszel.service
 
 当前项目可能仍然存在一些未被发现的 bug 或者潜在的问题。请勿完全信任该项目，如有问题请及时反馈问题，我会继续改进和优化该项目。
 
-📚 博客地址：https://blog.gckjoy.com/archives/fu-wu-qi-yue-liu-liang-tong-ji-yu-jing-gao-xi-tong
+📚 博客地址：[Blog](https://blog.gckjoy.com/archives/fu-wu-qi-yue-liu-liang-tong-ji-yu-jing-gao-xi-tong)
 
